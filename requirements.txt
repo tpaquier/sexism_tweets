@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+torch
+scikit-learn
+playwright
+jmespath 
+scrapfly-sdk
+asyncio
+twikit
