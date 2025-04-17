@@ -8,3 +8,4 @@ jmespath
 scrapfly-sdk
 asyncio
 twikit
+tqdm

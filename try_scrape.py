@@ -7,7 +7,7 @@ from twikit import Client
 
 async def main():
     client = Client('fr-FR')
-    await client.login(auth_info_1='pacoulot', password='KouyOku14') 
+    await client.login(auth_info_1='bitronou', password='BiteMolleDuQ88!') 
 
     # Optional: Save cookies to avoid re-logging in every time
     client.save_cookies('cookies.json')
