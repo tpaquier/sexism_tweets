@@ -20,7 +20,7 @@ async def main():
     tweet = await client.get_tweet_by_id(tweet_id)
 
     print("Tweet text:", tweet.text)
-
+    
 asyncio.run(main())
 
 
