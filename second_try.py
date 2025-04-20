@@ -13,11 +13,11 @@ tweet_ids = list(df_ids_whole['id'])
 async def fetch_tweets_text_only(tweet_ids):
     client = Client('fr-FR')
 
-    cookies_path = 'tweet_text_cookies.json'
+    cookies_path = 'tweet_text_cookies_true.json'
     if os.path.exists(cookies_path):
         client.load_cookies(path=cookies_path)
     else:
-        await client.login(auth_info_1='bitronou', password='BiteMolleDuQ88!')
+        await client.login(auth_info_1='patochedu13et38', password='ProutProut12!')
         client.save_cookies(cookies_path)
 
     results = []

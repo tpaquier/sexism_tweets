@@ -9,3 +9,6 @@ scrapfly-sdk
 asyncio
 twikit
 tqdm
+transformers
+sentencepiece
+accelerate
