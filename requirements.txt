@@ -11,3 +11,4 @@ twikit
 tqdm
 transformers
 sentencepiece
+protobuf
