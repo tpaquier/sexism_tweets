@@ -11,4 +11,3 @@ twikit
 tqdm
 transformers
 sentencepiece
-accelerate
