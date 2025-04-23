@@ -9,6 +9,8 @@ scrapfly-sdk
 asyncio
 twikit
 gdown
-nltk
 emoji
 emot
+transformers
+accelerate
+datasets
