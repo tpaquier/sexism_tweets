@@ -18,4 +18,5 @@ emot
 transformers
 accelerate
 datasets
+pickle
 
