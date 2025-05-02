@@ -8,9 +8,14 @@ jmespath
 scrapfly-sdk
 asyncio
 twikit
+tqdm
+transformers
+sentencepiece
+protobuf
 gdown
 emoji
 emot
 transformers
 accelerate
 datasets
+
