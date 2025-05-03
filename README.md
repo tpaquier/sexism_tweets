@@ -1,13 +1,48 @@
-Projet de 💩
+This notebook is an adaptation of  **[*An Annotated Corpus for Sexism Detection in French Tweets*](https://hal.science/hal-02889035/)**, by Patricia Chiril, Véronique Moriceau, Farah Benamara, Alda Mari, Gloria Origgi and Marlène Coulomb-Gully. The authors of the article have a git in which there is the id of each tweet that was selected in order to implement and test different methods to detect sexism in french tweets. Hence, implementing the paper and testing a few methods required a bit of craftmanship.
 
-Link for the tweets with text and their id : 
+In a nuthsell, the paper described how the authors annnotated different tweets in order to classify them as having sexist content or not. Once the annotation were done, they tested different methods in order to detect sexism in tweets. As for us, we tried bag of words, t-SNE and a neural-network approach. The neural network was slighlty modified from what was presented in the article in order to see how well we could perform given a different architecture.  
 
-https://drive.google.com/file/d/16rfiy-WrqBVBsrmE5VZk-Czk10wMAAmF/view?usp=sharing
+# The scraping
+As we had only access to a tweet's id, we needed to scrap Twitter (now X). As the rules changed a bit from the moment when it was called twitter, we had to use a package called `twikit`. Moreover, as the policy concerning bots has changed, we had a few difficulties scraping Twitter (we got five accounts that were banned). However, we managed to find a solution to these issues by imposing a random time between two requests. Nevertheless, our procedure was probably detected as being a bot as the response time of Twitter increased at 'fixed' intervals making the whole scraping last about fifteen hours. Our code to retrieve the tweets is in `twitter_scraping.py`. 
 
-url for xl : 
-https://docs.google.com/spreadsheets/d/1eoC3NooDOwFoOvfweVLEZ-z-jCPZghUCVMUPTBkUDIk/edit?gid=1834088666#gid=1834088666
+For this code to run, one needs to give its Twitter account credentials. We created one for the project but left it 'blank' as the repository will stay in public. The output is a csv file containing the tweet's id, its label (provided by the authors) of the article and the texte of the tweet, untreated. Hence, we had to take care of urls and emojis as they are quite frequent in Tweets. 
+
+# Fabz do your magic here
 
 
-The one below is the correct one
-https://docs.google.com/spreadsheets/d/1eoC3NooDOwFoOvfweVLEZ-z-jCPZghUCVMUPTBkUDIk/export?format=csv&gid=1834088666
-bis : export?format=csv&gid
+# Neural Network
+As the annotated corpus contained French tweets, we used the BERT variant adapted to French text that is CamemBERT. This model was used for two purposes. First, to retrieve the embeddings of the tweets and also to serve as a 'base' for our 'new' model. Concerning the embeddings, we decided to keep the whole sentence embedded and not average it in order to try to capture more 'subtle' differences. 
+
+For the model itself, two main approaches were developped in the article. First, train a model from scratch using convolutional layers and bi-directional LSTM layers. The other idea was first to use BERT and adding on top of the pre existing architecture a layer in order to do transfer learning. We decided to mix up a bit both. 
+
+We kept the pre-existing CamemBERT layers and added convolutional and bi-directional LSTM layers (with ReLU non-linearities). However, we decided to retrain the last layer of CamemBERT. This is because after a first training cycle, the precision and F1 score didn't change at all. Moreover, if we had kept the 'classical' BCE loss, as we were dealing with binary classification, it seemed logical that the model would only predict positive (i.e. sexist) labels./ Hence, we used a penalized loss in order to try to have better performances. At the end of the training, that was longer than the one in the article since we decided to train for 25 epochs whereas the authors ran 3 epochs, we had quite satisfying results. On our training set, we had : 
+
+```
+precision : 0.7918
+F1 : 0.6989
+AUC : 0.8580
+```
+
+We were quite happy with our results as the best precision attained by the authors was 0.790 (because their 'accuracy' is our 'precision'). Moreover, we think that with a bit more training or minor changes in the architecture, our F1 score could match what was presented in the paper. 
+
+
+
+
+# Conclusion
+
+The authors proposed a very interesting corpus for the detection of sexism in tweets. As we were more 'data-centered' our main concern couldn't be how a tweet was sexist *a priori* but after looking at the cited references the methodology was very interesting. Concerning our results, we are quite happy with them. Nevertheless, our model has a few flaws. First, we had to train our model more than the authors to get such resutls. This could come from the fact that, since the article was published, a certain quantity of identified tweets had been either deleted or removed. Which caused us to work with approximately 7k annotated tweets whereas they had more or less 12k. Hence, they managed to obtain very good results with limited computations whereas we had to use GPUs for a longer time. 
+
+Concerning the results themselves, even if they were quite satisfying, we still have some problems with false positive. This might be due to our samples that might have been biased. Indeed, as the selected tweets, even if not containing sexits content were selected because they at least mention it. So, for more general sentences such as 'la discrimination contre les femmes est un problème', our model will predict it as positive. This could be because as we haven't retrained the last layers on 'general' texts, the model might grasp a few particular words and occurences and once they appear in a tweet consider them as sexist. Something that could be seen as positive, but that is probably due more to the training sample than our procedure, is that there would be more false positives than false negatives, which is the best type of error we could get in our context. 
+
+
+
+
+
+
+
+
+
+    
+
+
+

@@ -8,8 +8,8 @@ import tqdm
 
 df_ids_whole = pd.read_csv('data_id.csv')
 tweet_ids = list(df_ids_whole['id'])
-#faudra changer les commentaires de chatgpt mais je crois que ca marche
-# List of tweet IDs to fetch
+
+#fetch the tweets
 async def fetch_tweets_text_only(tweet_ids):
     client = Client('fr-FR')
 
@@ -17,7 +17,7 @@ async def fetch_tweets_text_only(tweet_ids):
     if os.path.exists(cookies_path):
         client.load_cookies(path=cookies_path)
     else:
-        await client.login(auth_info_1='patochedu13et38', password='ProutProut12!')
+        await client.login(auth_info_1='username', password='password')
         client.save_cookies(cookies_path)
 
     results = []
@@ -27,13 +27,12 @@ async def fetch_tweets_text_only(tweet_ids):
             tweet = await client.get_tweet_by_id(tweet_id)
             results.append({'tweet_id': tweet_id, 'text': tweet.text})
         except Exception as e:
-            # If the tweet cannot be fetched (e.g., deleted, private), store NaN
             results.append({'tweet_id': tweet_id, 'text': np.nan})
-        # Add a random delay between requests (1.0 to 2.5 seconds)
+
         await asyncio.sleep(random.uniform(1.0, 2.5))
 
     return results
-
+#save the results to a csv file
 def save_results_to_csv(tweets_data, filename='tweets_text_only.csv'):
     df = pd.DataFrame(tweets_data)
     df.to_csv(filename, index=False)
