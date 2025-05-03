@@ -11,14 +11,14 @@ For this code to run, one needs to give its Twitter account credentials. We crea
 
 With the `data_preprocessing.ipynb` we clean up a corpus of French tweets before implementing the model.
 The processing steps are as follows:
-- Data loading
- The `tweets.csv` file is automatically downloaded from Google Drive and loaded into a pandas DataFrame. Empty tweets (missing values in the text column) are removed.
-- Raw text cleaning
+- **Data loading**
+The `tweets.csv` file is automatically downloaded from Google Drive and loaded into a pandas DataFrame. Empty tweets (missing values in the text column) are removed.
+- **Raw text cleaning**
 We apply several pre-processing operations to the text:
-*Lower-casing to standardize data.
-*Deletion of URLs.
-*Conversion of emojis to explicit French text descriptions (for example, :smile: becomes __visage_souriant__), using the emoji library.
-*Replacement of emoticons (such as :), :(, XD, etc.) with their French meanings (e.g. sourire, tristesse, rire) via a custom dictionary.
+-Lower-casing to standardize data.
+-Deletion of URLs.
+-Conversion of emojis to explicit French text descriptions (for example, :smile: becomes __visage_souriant__), using the emoji library.
+-Replacement of emoticons (such as :), :(, XD, etc.) with their French meanings (e.g. sourire, tristesse, rire) via a custom dictionary.
 
 # Supervised classification with SVM 
 
