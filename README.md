@@ -30,5 +30,19 @@ We were quite happy with our results as the best precision attained by the autho
 
 # Conclusion
 
+The authors proposed a very interesting corpus for the detection of sexism in tweets. As we were more 'data-centered' our main concern couldn't be how a tweet was sexist *a priori* but after looking at the cited references the methodology was very interesting. Concerning our results, we are quite happy with them. Nevertheless, our model has a few flaws. First, we had to train our model more than the authors to get such resutls. This could come from the fact that, since the article was published, a certain quantity of identified tweets had been either deleted or removed. Which caused us to work with approximately 7k annotated tweets whereas they had more or less 12k. Hence, they managed to obtain very good results with limited computations whereas we had to use GPUs for a longer time. 
+
+Concerning the results themselves, even if they were quite satisfying, we still have some problems with false positive. This might be due to our samples that might have been biased. Indeed, as the selected tweets, even if not containing sexits content were selected because they at least mention it. So, for more general sentences such as 'la discrimination contre les femmes est un problème', our model will predict it as positive. This could be because as we haven't retrained the last layers on 'general' texts, the model might grasp a few particular words and occurences and once they appear in a tweet consider them as sexist. Something that could be seen as positive, but that is probably due more to the training sample than our procedure, is that there would be more false positives than false negatives, which is the best type of error we could get in our context. 
+
+
+
+
+
+
+
+
+
+    
+
 
 
