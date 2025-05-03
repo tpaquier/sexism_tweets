@@ -22,8 +22,8 @@ We apply several pre-processing operations to the text:
 
 # Supervised classification with SVM 
 
-In the notebook `bow_svm.ipynb`, we want to reproduce the approach described in the reference article, using a simple supervised classification method based on an SVM model and a Bag-of-Words (BoW) representation. The aim was to establish an initial baseline from which we could compare the results obtained with more recent CamemBERT transformers model
-Steps taken :\
+In the notebook `bow_svm.ipynb`, we want to reproduce the approach described in the reference article, using a simple supervised classification method based on an SVM model and a Bag-of-Words (BoW) representation. The aim was to establish an initial baseline from which we could compare the results obtained with more recent CamemBERT model.
+Steps taken :
 - Vectorization: conversion of texts into numerical vectors using CountVectorizer (n-grams up to 3 words, 1000 features max).
 - Training: training of a linear SVM classifier (LinearSVC) on vectors.
 - Evaluation: performance measured via a classification ratio and a confusion matrix.
