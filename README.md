@@ -7,8 +7,30 @@ As we had only access to a tweet's id, we needed to scrap Twitter (now X). As th
 
 For this code to run, one needs to give its Twitter account credentials. We created one for the project but left it 'blank' as the repository will stay in public. The output is a csv file containing the tweet's id, its label (provided by the authors) of the article and the texte of the tweet, untreated. Hence, we had to take care of urls and emojis as they are quite frequent in Tweets. 
 
-# Fabz do your magic here
+# Text preprocessing
 
+With the `data_preprocessing.ipynb` we clean up a corpus of French tweets before implementing the model.
+The processing steps are as follows:
+- Data loading
+ The `tweets.csv` file is automatically downloaded from Google Drive and loaded into a pandas DataFrame. Empty tweets (missing values in the text column) are removed.
+- Raw text cleaning
+We apply several pre-processing operations to the text:
+*Lower-casing to standardize data.
+*Deletion of URLs.
+*Conversion of emojis to explicit French text descriptions (for example, :smile: becomes __visage_souriant__), using the emoji library.
+*Replacement of emoticons (such as :), :(, XD, etc.) with their French meanings (e.g. sourire, tristesse, rire) via a custom dictionary.
+
+# Supervised classification with SVM 
+
+In the notebook `bow_svm.ipynb`, we want to reproduce the approach described in the reference article, using a simple supervised classification method based on an SVM model and a Bag-of-Words (BoW) representation. The aim was to establish an initial baseline from which we could compare the results obtained with more recent CamemBERT transformers model
+Steps taken :
+- Vectorization: conversion of texts into numerical vectors using CountVectorizer (n-grams up to 3 words, 1000 features max).
+- Training: training of a linear SVM classifier (LinearSVC) on vectors.
+- Evaluation: performance measured via a classification ratio and a confusion matrix.
+
+The SVM model trained on the TF-IDF representations achieves an accuracy of 73%, with an f1-score of 0.78 for non-sexist tweets and 0.65 for sexist tweets.
+
+The t-SNE projection of the vectors shows a strong overlap between the two classes, suggesting a difficult separation in the lexical space.
 
 # Neural Network
 As the annotated corpus contained French tweets, we used the BERT variant adapted to French text that is CamemBERT. This model was used for two purposes. First, to retrieve the embeddings of the tweets and also to serve as a 'base' for our 'new' model. Concerning the embeddings, we decided to keep the whole sentence embedded and not average it in order to try to capture more 'subtle' differences. 
