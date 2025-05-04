@@ -5,7 +5,7 @@ In a nuthsell, the paper described how the authors annnotated different tweets i
 # The scraping
 As we had only access to a tweet's id, we needed to scrap Twitter (now X). As the rules changed a bit from the moment when it was called twitter, we had to use a package called `twikit`. Moreover, as the policy concerning bots has changed, we had a few difficulties scraping Twitter (we got five accounts that were banned). However, we managed to find a solution to these issues by imposing a random time between two requests. Nevertheless, our procedure was probably detected as being a bot as the response time of Twitter increased at 'fixed' intervals making the whole scraping last about fifteen hours. Our code to retrieve the tweets is in `twitter_scraping.py`. 
 
-For this code to run, one needs to give its Twitter account credentials. We created one for the project but left it 'blank' as the repository will stay in public. The output is a csv file containing the tweet's id, its label (provided by the authors) of the article and the texte of the tweet, untreated. Hence, we had to take care of urls and emojis as they are quite frequent in Tweets. 
+For this code to run, one needs to give its Twitter account credentials. We created one for the project but left it 'blank' as the repository will stay in public. The output is a csv file containing the tweet's id, its label (provided by the authors) of the article and the text of the tweet, untreated. Hence, we had to take care of urls and emojis as they are quite frequent in Tweets. 
 
 # Text preprocessing
 
